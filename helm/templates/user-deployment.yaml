@@ -1,0 +1,42 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata: 
+  name: user # Deploymentset name 
+  namespace: {{ .Values.namespace }}  
+  labels: 
+    app: user 
+    project: roboshop 
+    tier: app  
+spec: 
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels: # replicaset labels 
+      app: user 
+      project: roboshop 
+      tier: app  
+
+  template: # Pod definition 
+    metadata:
+      name: user # Pod name# ACTUAL POD NAME WILL BE DIFFERENT AFTER Kubectl apply
+      labels:
+        app: user 
+        project: roboshop 
+        tier: app  
+    spec: 
+      containers:
+      - name: user  # container name 
+        image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion }}"
+        ports: 
+        - containerPort: 8080 
+        envFrom:
+        - configMapRef:
+            name: user 
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"
+
+ 

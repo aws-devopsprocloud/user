@@ -1,0 +1,15 @@
+
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: user
+  namespace: {{ .Values.namespace }}  
+spec: 
+  selector: # selecting the Pod by using the same Pod labels 
+    app: user
+    project: roboshop
+    tier: app 
+  ports:
+  - protocol: TCP
+    port: 8080 # service port 
+    targetPort: 8080 # container port 

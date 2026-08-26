@@ -1,0 +1,6 @@
+deployment:
+  imageRepo: 453531893439.dkr.ecr.us-east-1.amazonaws.com/roboshop/user
+  imageVersion: latest
+  replicas: 1
+hpa:
+  cpuPercentage: 80
